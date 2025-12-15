@@ -1,1 +1,5 @@
-console.log('hello akash1');
+const string=()=>{
+    console.log('what a day');
+}
+
+string()
