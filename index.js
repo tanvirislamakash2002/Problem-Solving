@@ -1,5 +1,3 @@
-const string=()=>{
-    console.log('what a day');
-}
+const {a:what} = require("./js/practice")
 
-string()
+console.log(what);
