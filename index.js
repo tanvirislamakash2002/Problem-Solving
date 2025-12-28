@@ -171,3 +171,78 @@ function throttle(func, limit) {
 // Deep Clone: Essential for state management, immutability patterns (React/Redux), and preventing side effects
 
 // Debouncing: Critical for performance optimization in UI interactions and network request management
+
+
+//------------------------
+
+// Important JavaScript Interview Problem: Deep Object Comparison
+// Problem Statement:
+// Implement a function deepEqual(obj1, obj2) that returns true if two objects are deeply equal, and false otherwise. Deep equality means:
+
+// Primitive values are compared by value
+
+// Objects are compared by their properties (keys and values)
+
+// Arrays are treated as objects with ordered indices
+
+// Should handle nested objects/arrays of any depth
+
+// Should handle edge cases: null, undefined, NaN, dates, regex, etc.
+
+// const obj1 = { a: 1, b: { c: 2, d: [3, 4] } };
+// const obj2 = { a: 1, b: { c: 2, d: [3, 4] } };
+// const obj3 = { a: 1, b: { c: 2, d: [3, 5] } };
+
+deepEqual(obj1, obj2); // true
+deepEqual(obj1, obj3); // false
+deepEqual(NaN, NaN);   // true
+deepEqual([1, 2, 3], [1, 2, 3]); // true
+
+function deepEqual(obj1, obj2) {
+  // Handle primitive types (including NaN, null, undefined)
+  if (obj1 === obj2) {
+    return true;
+  }
+  
+  // Handle NaN comparison
+  if (Number.isNaN(obj1) && Number.isNaN(obj2)) {
+    return true;
+  }
+  
+  // Check if both are objects and not null
+  if (typeof obj1 !== 'object' || typeof obj2 !== 'object' || 
+      obj1 === null || obj2 === null) {
+    return false;
+  }
+  
+  // Handle Date comparison
+  if (obj1 instanceof Date && obj2 instanceof Date) {
+    return obj1.getTime() === obj2.getTime();
+  }
+  
+  // Handle RegExp comparison
+  if (obj1 instanceof RegExp && obj2 instanceof RegExp) {
+    return obj1.toString() === obj2.toString();
+  }
+  
+  // Handle ArrayBuffer, TypedArray, etc. if needed
+  // (Often omitted in interviews unless specified)
+  
+  // Get keys from both objects
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+  
+  // Check if they have the same number of keys
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+  
+  // Check if all keys are the same and recursively check values
+  for (const key of keys1) {
+    if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) {
+      return false;
+    }
+  }
+  
+  return true;
+}
