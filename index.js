@@ -246,3 +246,111 @@ function deepEqual(obj1, obj2) {
   
   return true;
 }
+
+// alternative solution
+
+function deepEqual(obj1, obj2, visited = new WeakMap()) {
+  // Basic equality check
+  if (obj1 === obj2) return true;
+  
+  // Handle NaN
+  if (Number.isNaN(obj1) && Number.isNaN(obj2)) return true;
+  
+  // Check for non-objects or null
+  if (typeof obj1 !== 'object' || typeof obj2 !== 'object' || 
+      obj1 === null || obj2 === null) {
+    return false;
+  }
+  
+  // Handle circular references
+  if (visited.has(obj1) && visited.get(obj1) === obj2) {
+    return true;
+  }
+  visited.set(obj1, obj2);
+  
+  // Check constructors
+  if (obj1.constructor !== obj2.constructor) return false;
+  
+  // Handle special object types
+  if (obj1 instanceof Date && obj2 instanceof Date) {
+    return obj1.getTime() === obj2.getTime();
+  }
+  
+  if (obj1 instanceof RegExp && obj2 instanceof RegExp) {
+    return obj1.toString() === obj2.toString();
+  }
+  
+  // Get all properties (including symbols)
+  const keys1 = Reflect.ownKeys(obj1);
+  const keys2 = Reflect.ownKeys(obj2);
+  
+  if (keys1.length !== keys2.length) return false;
+  
+  // Check each property recursively
+  for (const key of keys1) {
+    if (!Reflect.has(obj2, key) || 
+        !deepEqual(obj1[key], obj2[key], visited)) {
+      return false;
+    }
+  }
+  
+  return true;
+}
+
+// Why This is a Good Interview Problem:
+// Tests Multiple Concepts:
+
+// Value vs reference comparison
+
+// Recursion
+
+// Type checking
+
+// Object iteration
+
+// Edge case handling
+
+// Reveals Problem-Solving Approach:
+
+// Candidate should ask clarifying questions
+
+// Should handle primitive types first
+
+// Should consider performance (circular references)
+
+// Should think about special object types
+
+// Common Follow-up Questions:
+
+// "How would you handle circular references?"
+
+// "What's the time/space complexity?" (O(n) time, O(d) space for recursion depth)
+
+// "How would you optimize for large objects?"
+
+// "How would you compare functions or symbols?"
+
+// Real-world Relevance:
+
+// Used in testing frameworks
+
+// State comparison in React/Redux
+
+// Deep cloning implementations
+
+// Data validation and serialization
+
+// Key Points Interviewers Look For:
+// Correct handling of edge cases (null, arrays, dates, NaN)
+
+// Use of recursion for nested structures
+
+// Proper type checking (using typeof, instanceof)
+
+// Consideration of object key enumeration (own properties vs inherited)
+
+// Time/space complexity awareness
+
+// Clean, readable code with good variable names
+
+// This problem effectively separates junior from senior developers based on their attention to edge cases and understanding of JavaScript's type system.
