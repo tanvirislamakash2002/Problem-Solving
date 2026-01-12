@@ -68,15 +68,51 @@ function debounceAdvanced(func, delay, immediate = false) {
   };
 }
 
-function debounce(func, delay) {
-  let timeoutId;
-  
-  return function(...args) {
-    // Clear the previous timeout
-    clearTimeout(timeoutId);
-    
-    // Set a new timeout
-    timeoutId = setTimeout(() => {
-      func.apply(this, args);
-    }, delay);
+function deepEqual(obj1, obj2) {
+  // Handle primitive types (including NaN, null, undefined)
+  if (obj1 === obj2) {
+    return true;
   }
+  
+  // Handle NaN comparison
+  if (Number.isNaN(obj1) && Number.isNaN(obj2)) {
+    return true;
+  }
+  
+  // Check if both are objects and not null
+  if (typeof obj1 !== 'object' || typeof obj2 !== 'object' || 
+      obj1 === null || obj2 === null) {
+    return false;
+  }
+  
+  // Handle Date comparison
+  if (obj1 instanceof Date && obj2 instanceof Date) {
+    return obj1.getTime() === obj2.getTime();
+  }
+  
+  // Handle RegExp comparison
+  if (obj1 instanceof RegExp && obj2 instanceof RegExp) {
+    return obj1.toString() === obj2.toString();
+  }
+  
+  // Handle ArrayBuffer, TypedArray, etc. if needed
+  // (Often omitted in interviews unless specified)
+  
+  // Get keys from both objects
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+  
+  // Check if they have the same number of keys
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+  
+  // Check if all keys are the same and recursively check values
+  for (const key of keys1) {
+    if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) {
+      return false;
+    }
+  }
+  
+  return true;
+}
