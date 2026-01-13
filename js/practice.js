@@ -116,3 +116,52 @@ function deepEqual(obj1, obj2) {
   
   return true;
 }
+
+// 
+function deepEqual(obj1, obj2, visited = new WeakMap()) {
+  // Basic equality check
+  if (obj1 === obj2) return true;
+  
+  // Handle NaN
+  if (Number.isNaN(obj1) && Number.isNaN(obj2)) return true;
+  
+  // Check for non-objects or null
+  if (typeof obj1 !== 'object' || typeof obj2 !== 'object' || 
+      obj1 === null || obj2 === null) {
+    return false;
+  }
+  
+  // Handle circular references
+  if (visited.has(obj1) && visited.get(obj1) === obj2) {
+    return true;
+  }
+  visited.set(obj1, obj2);
+  
+  // Check constructors
+  if (obj1.constructor !== obj2.constructor) return false;
+  
+  // Handle special object types
+  if (obj1 instanceof Date && obj2 instanceof Date) {
+    return obj1.getTime() === obj2.getTime();
+  }
+  
+  if (obj1 instanceof RegExp && obj2 instanceof RegExp) {
+    return obj1.toString() === obj2.toString();
+  }
+  
+  // Get all properties (including symbols)
+  const keys1 = Reflect.ownKeys(obj1);
+  const keys2 = Reflect.ownKeys(obj2);
+  
+  if (keys1.length !== keys2.length) return false;
+  
+  // Check each property recursively
+  for (const key of keys1) {
+    if (!Reflect.has(obj2, key) || 
+        !deepEqual(obj1[key], obj2[key], visited)) {
+      return false;
+    }
+  }
+  
+  return true;
+}
