@@ -166,16 +166,27 @@ function deepEqual(obj1, obj2, visited = new WeakMap()) {
   return true;
 }
 
-function debounce(func, delay) {
+// debounced advanced function
+function debounceAdvanced(func, delay, immediate = false) {
   let timeoutId;
   
   return function(...args) {
-    // Clear the previous timeout
-    clearTimeout(timeoutId);
+    const context = this;
     
-    // Set a new timeout
-    timeoutId = setTimeout(() => {
-      func.apply(this, args);
-    }, delay);
+    const later = function() {
+      timeoutId = null;
+      if (!immediate) {
+        func.apply(context, args);
+      }
+    };
+    
+    const callNow = immediate && !timeoutId;
+    
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(later, delay);
+    
+    if (callNow) {
+      func.apply(context, args);
+    }
   };
 }
