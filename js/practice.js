@@ -180,33 +180,51 @@ function debounce(func, delay) {
   };
 }
 
-function deepClone(obj) {
-  // Handle primitives, null, and undefined
-  if (obj === null || typeof obj !== 'object') {
-    return obj;
+function deepEqual(obj1, obj2) {
+  // Handle primitive types (including NaN, null, undefined)
+  if (obj1 === obj2) {
+    return true;
   }
   
-  // Handle Date
-  if (obj instanceof Date) {
-    return new Date(obj.getTime());
+  // Handle NaN comparison
+  if (Number.isNaN(obj1) && Number.isNaN(obj2)) {
+    return true;
   }
   
-  // Handle Array
-  if (Array.isArray(obj)) {
-    return obj.map(item => deepClone(item));
+  // Check if both are objects and not null
+  if (typeof obj1 !== 'object' || typeof obj2 !== 'object' || 
+      obj1 === null || obj2 === null) {
+    return false;
   }
   
-  // Handle Object
-  if (typeof obj === 'object') {
-    const clonedObj = {};
-    for (let key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        clonedObj[key] = deepClone(obj[key]);
-      }
+  // Handle Date comparison
+  if (obj1 instanceof Date && obj2 instanceof Date) {
+    return obj1.getTime() === obj2.getTime();
+  }
+  
+  // Handle RegExp comparison
+  if (obj1 instanceof RegExp && obj2 instanceof RegExp) {
+    return obj1.toString() === obj2.toString();
+  }
+  
+  // Handle ArrayBuffer, TypedArray, etc. if needed
+  // (Often omitted in interviews unless specified)
+  
+  // Get keys from both objects
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+  
+  // Check if they have the same number of keys
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+  
+  // Check if all keys are the same and recursively check values
+  for (const key of keys1) {
+    if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) {
+      return false;
     }
-    return clonedObj;
   }
   
-  // Fallback (should not reach here for valid inputs)
-  return obj;
+  return true;
 }
