@@ -303,3 +303,28 @@ function debounce(func, delay) {
     }, delay);
   };
 }
+
+// debounced advanced function
+function debounceAdvanced(func, delay, immediate = false) {
+  let timeoutId;
+  
+  return function(...args) {
+    const context = this;
+    
+    const later = function() {
+      timeoutId = null;
+      if (!immediate) {
+        func.apply(context, args);
+      }
+    };
+    
+    const callNow = immediate && !timeoutId;
+    
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(later, delay);
+    
+    if (callNow) {
+      func.apply(context, args);
+    }
+  };
+}
