@@ -359,3 +359,15 @@ function deepClone(obj) {
   // Fallback (should not reach here for valid inputs)
   return obj;
 }
+
+function throttle(func, limit) {
+  let inThrottle;
+  
+  return function(...args) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  };
+}
