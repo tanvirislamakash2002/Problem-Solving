@@ -26,6 +26,21 @@ function isPalindrome(str) {
   return str === reversed;
 }
 
+function isPalindrome(str) {
+  let left = 0;
+  let right = str.length - 1;
+
+  while (left < right) {
+    if (str[left] !== str[right]) {
+      return false;
+    }
+    left++;
+    right--;
+  }
+
+  return true;
+}
+
 // 3. **Find the Largest Number in an Array**
 //    Given an array of numbers, return the largest number without using built-in max functions.
 
