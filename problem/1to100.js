@@ -21,6 +21,11 @@ function reverseString(str) {
 // 2. **Check for Palindrome**
 //    Write a function that checks whether a given string is a palindrome (reads the same backward).
 
+function isPalindrome(str) {
+  const reversed = str.split('').reverse().join('');
+  return str === reversed;
+}
+
 // 3. **Find the Largest Number in an Array**
 //    Given an array of numbers, return the largest number without using built-in max functions.
 
