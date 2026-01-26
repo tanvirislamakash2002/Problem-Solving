@@ -4,6 +4,10 @@
 //    Given a string, write a function that returns the string reversed.
 
 function reverseString(str) {
+  return str.split('').reverse().join('');
+}
+
+function reverseString(str) {
   let reversed = '';
 
   for (let i = str.length - 1; i >= 0; i--) {
