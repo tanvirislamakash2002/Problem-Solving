@@ -44,6 +44,18 @@ function isPalindrome(str) {
 // 3. **Find the Largest Number in an Array**
 //    Given an array of numbers, return the largest number without using built-in max functions.
 
+function findLargestNumber(arr) {
+  let largest = arr[0];
+
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > largest) {
+      largest = arr[i];
+    }
+  }
+
+  return largest;
+}
+
 // 4. **Remove Duplicates from an Array**
 //    Given an array, return a new array with duplicate values removed.
 
