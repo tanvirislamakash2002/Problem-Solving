@@ -401,3 +401,8 @@ function findLargestNumber(arr) {
 
   return largest;
 }
+
+function isPalindrome(str) {
+  const reversed = str.split('').reverse().join('');
+  return str === reversed;
+}
