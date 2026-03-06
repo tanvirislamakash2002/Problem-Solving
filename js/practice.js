@@ -390,33 +390,33 @@ function deepClone(obj) {
   // Fallback (should not reach here for valid inputs)
   return obj;
 }
-function findLargestNumber(arr) {
-  let largest = arr[0];
-
-  for (let i = 1; i < arr.length; i++) {
-    if (arr[i] > largest) {
-      largest = arr[i];
+function deepClone(obj) {
+  // Handle primitives, null, and undefined
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+  
+  // Handle Date
+  if (obj instanceof Date) {
+    return new Date(obj.getTime());
+  }
+  
+  // Handle Array
+  if (Array.isArray(obj)) {
+    return obj.map(item => deepClone(item));
+  }
+  
+  // Handle Object
+  if (typeof obj === 'object') {
+    const clonedObj = {};
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        clonedObj[key] = deepClone(obj[key]);
+      }
     }
+    return clonedObj;
   }
-
-  return largest;
-}
-
-function isPalindrome(str) {
-  const reversed = str.split('').reverse().join('');
-  return str === reversed;
-}
-
-function reverseString(str) {
-  return str.split('').reverse().join('');
-}
-
-function reverseString(str) {
-  let reversed = '';
-
-  for (let i = str.length - 1; i >= 0; i--) {
-    reversed += str[i];
-  }
-
-  return reversed;
+  
+  // Fallback (should not reach here for valid inputs)
+  return obj;
 }
