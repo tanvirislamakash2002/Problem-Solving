@@ -393,26 +393,14 @@ function deepClone(obj) {
 
 
 
-function debounceAdvanced(func, delay, immediate = false) {
-  let timeoutId;
+function throttle(func, limit) {
+  let inThrottle;
   
   return function(...args) {
-    const context = this;
-    
-    const later = function() {
-      timeoutId = null;
-      if (!immediate) {
-        func.apply(context, args);
-      }
-    };
-    
-    const callNow = immediate && !timeoutId;
-    
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(later, delay);
-    
-    if (callNow) {
-      func.apply(context, args);
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
     }
   };
 }
