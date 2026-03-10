@@ -420,16 +420,14 @@ function isPalindrome(str) {
   return true;
 }
 
-function debounce(func, delay) {
-  let timeoutId;
+function throttle(func, limit) {
+  let inThrottle;
   
   return function(...args) {
-    // Clear the previous timeout
-    clearTimeout(timeoutId);
-    
-    // Set a new timeout
-    timeoutId = setTimeout(() => {
+    if (!inThrottle) {
       func.apply(this, args);
-    }, delay);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
   };
 }
