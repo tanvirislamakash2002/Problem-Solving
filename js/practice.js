@@ -420,14 +420,14 @@ function isPalindrome(str) {
   return true;
 }
 
-function throttle(func, limit) {
-  let inThrottle;
-  
-  return function(...args) {
-    if (!inThrottle) {
-      func.apply(this, args);
-      inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
+function findLargestNumber(arr) {
+  let largest = arr[0];
+
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > largest) {
+      largest = arr[i];
     }
-  };
+  }
+
+  return largest;
 }
