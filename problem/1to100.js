@@ -59,6 +59,39 @@ function findLargestNumber(arr) {
 // 4. **Remove Duplicates from an Array**
 //    Given an array, return a new array with duplicate values removed.
 
+function removeDuplicates(arr) {
+    // Edge case: handle invalid input
+    if (!Array.isArray(arr)) {
+        return [];
+    }
+    
+    // Use Set for O(n) time complexity
+    return [...new Set(arr)];
+}
+
+// Example usage
+console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5])); // [1, 2, 3, 4, 5]
+
+// or--
+function removeDuplicates(arr) {
+    if (!Array.isArray(arr)) {
+        return [];
+    }
+    
+    const unique = [];
+    const seen = {};
+    
+    for (let i = 0; i < arr.length; i++) {
+        const item = arr[i];
+        if (!seen[item]) {
+            seen[item] = true;
+            unique.push(item);
+        }
+    }
+    
+    return unique;
+}
+
 // 5. **Count Character Frequency**
 //    Given a string, return an object that shows how many times each character appears.
 
