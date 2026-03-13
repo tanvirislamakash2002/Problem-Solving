@@ -95,6 +95,29 @@ function removeDuplicates(arr) {
 // 5. **Count Character Frequency**
 //    Given a string, return an object that shows how many times each character appears.
 
+function countCharacterFrequency(str) {
+    // Edge case: handle invalid input
+    if (typeof str !== 'string') {
+        return {};
+    }
+    
+    const frequency = {};
+    
+    for (const char of str) {
+        // If character exists, increment; otherwise initialize to 1
+        frequency[char] = (frequency[char] || 0) + 1;
+    }
+    
+    return frequency;
+}
+
+// Example usage
+console.log(countCharacterFrequency("hello")); 
+// { h: 1, e: 1, l: 2, o: 1 }
+
+console.log(countCharacterFrequency("mississippi")); 
+// { m: 1, i: 4, s: 4, p: 2 }
+
 // 6. **Flatten a Nested Array**
 //    Given an array that may contain nested arrays, return a single flattened array.
 
