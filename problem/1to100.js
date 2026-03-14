@@ -121,6 +121,25 @@ console.log(countCharacterFrequency("mississippi"));
 // 6. **Flatten a Nested Array**
 //    Given an array that may contain nested arrays, return a single flattened array.
 
+function flattenArray(arr) {
+    let result = [];
+    
+    for (let i = 0; i < arr.length; i++) {
+        if (Array.isArray(arr[i])) {
+            // Recursively flatten nested arrays
+            result = result.concat(flattenArray(arr[i]));
+        } else {
+            result.push(arr[i]);
+        }
+    }
+    
+    return result;
+}
+
+// Example usage:
+const nested = [1, [2, 3], [4, [5, 6]], 7];
+console.log(flattenArray(nested)); // [1, 2, 3, 4, 5, 6, 7]
+
 // 7. **Find Missing Number in an Array**
 //    Given an array of numbers from 1 to N with one number missing, find the missing number.
 
