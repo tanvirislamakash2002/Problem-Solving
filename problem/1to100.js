@@ -143,6 +143,21 @@ console.log(flattenArray(nested)); // [1, 2, 3, 4, 5, 6, 7]
 // 7. **Find Missing Number in an Array**
 //    Given an array of numbers from 1 to N with one number missing, find the missing number.
 
+function findMissingNumber(arr, n) {
+    // Calculate expected sum of numbers from 1 to n
+    const expectedSum = (n * (n + 1)) / 2;
+    
+    // Calculate actual sum of array elements
+    const actualSum = arr.reduce((sum, num) => sum + num, 0);
+    
+    // Missing number is the difference
+    return expectedSum - actualSum;
+}
+
+// Example usage
+const numbers = [1, 2, 4, 5, 6]; // n should be 6
+console.log(findMissingNumber(numbers, 6)); // Output: 3
+
 // 8. **Debounce Function Implementation**
 //    Write a function that implements debounce behavior for another function.
 
