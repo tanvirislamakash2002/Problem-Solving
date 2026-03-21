@@ -432,21 +432,18 @@ function throttle(func, limit) {
   };
 }
 
-function removeDuplicates(arr) {
-    if (!Array.isArray(arr)) {
-        return [];
+function countCharacterFrequency(str) {
+    // Edge case: handle invalid input
+    if (typeof str !== 'string') {
+        return {};
     }
     
-    const unique = [];
-    const seen = {};
+    const frequency = {};
     
-    for (let i = 0; i < arr.length; i++) {
-        const item = arr[i];
-        if (!seen[item]) {
-            seen[item] = true;
-            unique.push(item);
-        }
+    for (const char of str) {
+        // If character exists, increment; otherwise initialize to 1
+        frequency[char] = (frequency[char] || 0) + 1;
     }
     
-    return unique;
+    return frequency;
 }
