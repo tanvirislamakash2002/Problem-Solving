@@ -431,3 +431,22 @@ function throttle(func, limit) {
     }
   };
 }
+
+function removeDuplicates(arr) {
+    if (!Array.isArray(arr)) {
+        return [];
+    }
+    
+    const unique = [];
+    const seen = {};
+    
+    for (let i = 0; i < arr.length; i++) {
+        const item = arr[i];
+        if (!seen[item]) {
+            seen[item] = true;
+            unique.push(item);
+        }
+    }
+    
+    return unique;
+}
