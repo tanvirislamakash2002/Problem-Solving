@@ -420,42 +420,27 @@ function isPalindrome(str) {
   return true;
 }
 
-function throttle(func, limit) {
-  let inThrottle;
+// debounced advanced function
+function debounceAdvanced(func, delay, immediate = false) {
+  let timeoutId;
   
   return function(...args) {
-    if (!inThrottle) {
-      func.apply(this, args);
-      inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
-    }
-  };
-}
-
-function countCharacterFrequency(str) {
-    // Edge case: handle invalid input
-    if (typeof str !== 'string') {
-        return {};
-    }
+    const context = this;
     
-    const frequency = {};
+    const later = function() {
+      timeoutId = null;
+      if (!immediate) {
+        func.apply(context, args);
+      }
+    };
     
-    for (const char of str) {
-        // If character exists, increment; otherwise initialize to 1
-        frequency[char] = (frequency[char] || 0) + 1;
-    }
+    const callNow = immediate && !timeoutId;
     
-    return frequency;
-}
-
-function throttle(func, limit) {
-  let inThrottle;
-  
-  return function(...args) {
-    if (!inThrottle) {
-      func.apply(this, args);
-      inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(later, delay);
+    
+    if (callNow) {
+      func.apply(context, args);
     }
   };
 }
