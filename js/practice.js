@@ -473,4 +473,26 @@ function AreArraysEqual(arr1, arr2) {
     return true;
 }
 
-// console.log(AreArraysEqual([1, 2, 3], [3, 2, 1]));  
+// console.log(AreArraysEqual([1, 2, 3], [3, 2, 1])); 
+
+function lengthOfLongestSubstring(s) {
+    let maxLength = 0;
+    
+    for (let i = 0; i < s.length; i++) {
+        const seen = new Set();
+        let currentLength = 0;
+        
+        for (let j = i; j < s.length; j++) {
+            if (seen.has(s[j])) {
+                break;
+            }
+            seen.add(s[j]);
+            currentLength++;
+            maxLength = Math.max(maxLength, currentLength);
+        }
+    }
+    
+    return maxLength;
+}
+
+// console.log(lengthOfLongestSubstring("abcabcbb"));
