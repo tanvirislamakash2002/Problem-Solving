@@ -496,3 +496,23 @@ function lengthOfLongestSubstring(s) {
 }
 
 // console.log(lengthOfLongestSubstring("abcabcbb"));
+
+function MergeSortedArrays(arr1, arr2) {
+    const merged = [];
+    let i = 0
+    let j = 0;
+    
+    while (i < arr1.length || j < arr2.length) {
+        if (j === arr2.length || (i < arr1.length && arr1[i] < arr2[j])) {
+            merged.push(arr1[i]);
+            i++;
+        } else {
+            merged.push(arr2[j]);
+            j++;
+        }
+    }
+    
+    return merged;
+}
+
+// console.log(MergeSortedArrays([1, 3, 5], [2, 4, 6])); 
