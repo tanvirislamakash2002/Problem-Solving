@@ -516,3 +516,18 @@ function MergeSortedArrays(arr1, arr2) {
 }
 
 // console.log(MergeSortedArrays([1, 3, 5], [2, 4, 6])); 
+
+function FindMissingNumber(nums) {
+    nums.sort((a, b) => a - b);
+    const n = nums.length + 1;
+    
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] !== i + 1) {
+            return i + 1;
+        }
+    }
+    
+    return n;
+}
+
+// console.log(FindMissingNumber([1, 2, 3, 4, 5]))
