@@ -532,14 +532,12 @@ function FindMissingNumber(nums) {
 
 // console.log(FindMissingNumber([1, 2, 3, 4, 5]))
 
-function throttle(func, limit) {
-  let inThrottle;
-  
-  return function(...args) {
-    if (!inThrottle) {
-      func.apply(this, args);
-      inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
+function removeDuplicates(arr) {
+    // Edge case: handle invalid input
+    if (!Array.isArray(arr)) {
+        return [];
     }
-  };
+    
+    // Use Set for O(n) time complexity
+    return [...new Set(arr)];
 }
