@@ -555,3 +555,14 @@ function reverseString(str) {
 
   return reversed;
 }
+
+function findMissingNumber(arr, n) {
+    // Calculate expected sum of numbers from 1 to n
+    const expectedSum = (n * (n + 1)) / 2;
+    
+    // Calculate actual sum of array elements
+    const actualSum = arr.reduce((sum, num) => sum + num, 0);
+    
+    // Missing number is the difference
+    return expectedSum - actualSum;
+}
