@@ -67,3 +67,30 @@ const romanToInt = function (s) {
   }
   return value
 };
+
+// problem 04 :
+
+
+const removeCoveredIntervals = (intervals) => {
+  let max_end = -1
+  let count = 0
+
+  intervals.sort((a, b) => {
+    if (a[0] !== b[0]) return a[0] - b[0];
+    return b[1] - a[1];
+  })
+
+  for (let i = 0; i < intervals.length; i++) {
+    const [li, ri] = intervals[i];
+
+    if (ri > max_end) {
+      max_end = ri
+      count += 1
+    }
+  }
+  return count
+};
+
+console.log(removeCoveredIntervals([[1,4],[3,6],[2,8]]));
+
+// problem 05 :
