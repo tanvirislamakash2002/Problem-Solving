@@ -70,7 +70,6 @@ const romanToInt = function (s) {
 
 // problem 04 :
 
-
 const removeCoveredIntervals = (intervals) => {
   let max_end = -1
   let count = 0
@@ -94,3 +93,21 @@ const removeCoveredIntervals = (intervals) => {
 console.log(removeCoveredIntervals([[1,4],[3,6],[2,8]]));
 
 // problem 05 :
+
+const sumAndMultiply = (n)=> {
+   let total = 0;
+   let combine = "" 
+   const arr = n.toString().split('')
+
+   for (a of arr){
+    if(a!=="0"){
+        combine +=a
+        total += Number(a)
+    }
+   }
+   return combine * total
+};
+
+sumAndMultiply(10203004)
+
+// problem 06 :
