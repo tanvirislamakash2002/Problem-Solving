@@ -1,4 +1,4 @@
-// problem 01 :
+// TODO problem 01 :
 
 const twoSum = function (nums, target) {
     const seen = {};
@@ -11,7 +11,7 @@ const twoSum = function (nums, target) {
     }
 };
 
-// problem 02 :
+// TODO problem 02 :
 
 const isPalindrome = (x) => {
     if (typeof (x) === "number") {
@@ -25,7 +25,7 @@ const isPalindrome = (x) => {
     }
 };
 
-// problem 03 :
+// TODO problem 03 :
 
 const romanToInt = function (s) {
   const arr = s.split('');
@@ -92,7 +92,7 @@ const removeCoveredIntervals = (intervals) => {
 
 console.log(removeCoveredIntervals([[1,4],[3,6],[2,8]]));
 
-// problem 05 :
+// TODO problem 05 :
 
 const sumAndMultiply = (n)=> {
    let total = 0;
@@ -110,7 +110,7 @@ const sumAndMultiply = (n)=> {
 
 sumAndMultiply(10203004)
 
-// problem 06 :
+// TODO problem 06 :
 
 const MOD = 1000000007n;
 
@@ -183,4 +183,38 @@ const sumAndMultiply = (s, queries) => {
     return result;
 };
 
-// problem 07 :
+// TODO problem 07 :
+
+
+const pathExistenceQueries = (n, nums, maxDiff, queries) => {
+    let components = []
+    components[0] = 0
+    let currentCamp = 0
+    let result = []
+    for (let i = 0; i < n - 1; i++) {
+        if (nums[i + 1] - nums[i] <= maxDiff) {
+            components[i + 1] = currentCamp
+        } else {
+            currentCamp++
+            components[i + 1] = currentCamp
+        }
+    }
+    for(q of queries){
+        let [u,v]=q;
+        if(components[u]===components[v]){
+            result.push(true)
+        }else{
+            result.push(false)
+        }
+    }
+    return result
+};
+const n = 2
+const nums = [1, 3]
+const maxDiff = 1
+const queries = [[0, 0], [0, 1]]
+
+const result = pathExistenceQueries(n, nums, maxDiff, queries)
+console.log(result)
+
+// TODO problem 08 :
