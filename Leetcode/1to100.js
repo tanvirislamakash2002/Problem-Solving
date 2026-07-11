@@ -312,3 +312,64 @@ const maxDiff = 3
 const queries = [[0, 3], [2, 4]]
 
 // TODO problem 09 :
+
+const countCompleteComponents = (n, edges) => {
+    const parent = Array.from({ length: n }, (_, i) => i)
+    const size = Array(n).fill(1)
+    const edgeCount = Array(n).fill(0)
+
+    const find = (x) => {
+        if (parent[x] !==x) {
+            parent[x] = find(parent[x])
+        }
+        return parent[x]
+    }
+
+    const union = (a, b) => {
+        let rootA = find(a)
+        let rootB = find(b)
+
+        if (rootA === rootB) {
+            edgeCount[rootA]++
+            return
+        }
+
+        if (size[rootA] < size[rootB]) {
+            const temp = rootA
+            rootA = rootB
+            rootB = temp
+        }
+
+        parent[rootB] = rootA
+        size[rootA] += size[rootB]
+        edgeCount[rootA] += edgeCount[rootB] + 1
+    }
+
+    for (const [a, b] of edges) {
+        union(a, b)
+    }
+
+    const roots = new Set()
+
+    for (let i=0; i<n; i++){
+        roots.add(find(i))
+    }
+
+    let completeComments = 0
+
+    for(const root of roots){
+        const vertices = size[root]
+        const edgesInCamp = edgeCount[root]
+        const expectedEdges = vertices * (vertices - 1)/ 2
+    if(edgesInCamp ===  expectedEdges){
+        completeComments++
+    }
+    }
+    return completeComments
+}
+
+const n = 6
+const edges = [[0, 1], [0, 2], [1, 2], [3, 4]]
+console.log(countCompleteComponents(n, edges))
+
+// TODO problem 10 :
