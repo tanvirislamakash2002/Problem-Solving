@@ -413,7 +413,6 @@ return 0
 
 // TODO problem 11 :
 
-
 const arrayRankTransform = (arr)=> {
     const sortedUnique = [...new Set(arr)].sort((a,b)=>a-b)
 
