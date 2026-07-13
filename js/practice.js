@@ -1,16 +1,18 @@
 
-const arrayRankTransform = (arr) => {
-    const sortedUnique = [...new Set(arr)].sort((a, b) => a - b)
-
-    const rankMap = new Map()
-    sortedUnique.forEach((value, index) => {
-        rankMap.set(value, index + 1)
-    })
-
-    return arr.map(value => rankMap.get(value))
+const sequentialDigits = function (low, high) {
+    const result = []
+    const allDigits = "1234568789"
+    for (let len = String(low).length; len <= String(high).length; len++) {
+        for (let start = 0; start + len <= allDigits.length; start++) {
+            const num = Number(allDigits.slice(start, start + len))
+            if (num >= low && num <= high) {
+                result.push(num)
+            }
+        }
+    }
+    return result.sort((a, b) => a - b)
 };
-
-const arr = [40, 10, 20, 30]
-
-const result = arrayRankTransform(arr)
-console.log(result);
+const low = 1000
+const high = 13000
+const result = sequentialDigits(low, high)
+console.log(result)
