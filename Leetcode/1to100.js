@@ -448,3 +448,75 @@ const result = sequentialDigits(low, high)
 console.log(result)
 
 // TODO problem 13 :
+
+const subsequencePairCount = (nums) => {
+    const MOD = 10 ** 9 + 7
+    const MAX_VAL = 200
+
+    const gcd=(i, j)=>{
+        while (j !== 0) {
+            [i, j] = [j, i % j]
+        }
+        return i
+    }
+    const gcdTable = Array.from({ length: MAX_VAL + 1 }, () =>
+        Array(MAX_VAL + 1).fill(0)
+    )
+
+    for (let i = 0; i <= MAX_VAL; i++) {
+        for (let j = 0; j <= MAX_VAL; j++) {
+            gcdTable[i][j] = gcd(i, j)
+        }
+    }
+
+    const dp = Array.from({ length: MAX_VAL + 1 }, () =>
+        Array(MAX_VAL + 1).fill(0)
+    )
+    dp[0][0] = 1
+
+    let reachableG1 = new Set([0])
+    let reachableG2 = new Set([0])
+
+    for (const x of nums) {
+        const newDp = Array.from({ length: MAX_VAL + 1 }, () =>
+            Array(MAX_VAL + 1).fill(0)
+        )
+        const newReachableG1 = new Set(reachableG1)
+        const newReachableG2 = new Set(reachableG2)
+
+        for (const g1 of reachableG1) {
+            for (const g2 of reachableG2) {
+                const curr = dp[g1][g2]
+                if (curr === 0) continue
+                newDp[g1][g2] = (newDp[g1][g2] + curr) % MOD
+
+                const newG1 = g1 === 0 ? x : gcdTable[g1][x]
+                newDp[newG1][g2]=(newDp[newG1][g2] + curr) % MOD
+
+                newReachableG1.add(newG1)
+                newReachableG2.add(g2)
+
+                const newG2 = g2 === 0 ? x : gcdTable[g2][x]
+                newDp[g1][newG2] = (newDp[g1][newG2] + curr) % MOD
+                newReachableG1.add(g1)
+                newReachableG2.add(newG2)
+            }
+        }
+
+        for (let i = 0; i <= MAX_VAL; i++) {
+            for (let j = 0; j <= MAX_VAL; j++) {
+                dp[i][j]= newDp[i][j]
+            }
+        }
+        reachableG1 = newReachableG1;
+        reachableG2 = newReachableG2;
+    }
+
+    let answer = 0;
+    for (let g = 1; g <= MAX_VAL; g++) {
+        answer = (answer + dp[g][g]) % MOD
+    }
+    return answer
+};
+
+// TODO problem 14 :
