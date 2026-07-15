@@ -520,3 +520,25 @@ const subsequencePairCount = (nums) => {
 };
 
 // TODO problem 14 :
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+const gcdOfOddEvenSums = (n) => {
+const sumOdd = n*n;
+
+const sumEven = n * (n+1)
+
+const gcd = (a, b)=>{
+    while (b!==0){
+        [a,b]= [b,a%b]
+    }
+    return a
+}
+return gcd(sumOdd, sumEven)
+};
+const n = 4
+gcdOfOddEvenSums(n)
+
+// TODO problem 15 :
