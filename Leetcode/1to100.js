@@ -542,3 +542,45 @@ const n = 4
 gcdOfOddEvenSums(n)
 
 // TODO problem 15 :
+
+const gcdSum = (nums) =>{
+  const n=nums.length
+
+  const prefixGcd = new Array(n)
+  let maxSoFar = 0
+
+  for (let i=0; i<n; i++){
+    if(nums[i]>maxSoFar){
+        maxSoFar = nums[i]
+    }
+    let a = nums[i]
+    let b = maxSoFar
+
+    while(b!==0){
+        let temp = b
+        b=a%b;
+        a = temp
+    }
+    prefixGcd[i]=a
+  }  
+
+  prefixGcd.sort((a,b)=>a-b)
+
+  let sum = 0
+  const pairsCount = Math.floor(n/2)
+
+  for(let i = 0; i<pairsCount; i++){
+    let a = prefixGcd[i]
+    let b = prefixGcd[n-1-i]
+
+    while(b!==0){
+        let temp = b;
+        b=a%b
+        a = temp
+    }
+    sum+=a
+  }
+  return sum
+};
+
+// TODO problem 16 :
