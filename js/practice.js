@@ -1,18 +1,14 @@
-
-const sequentialDigits = function (low, high) {
-    const result = []
-    const allDigits = "1234568789"
-    for (let len = String(low).length; len <= String(high).length; len++) {
-        for (let start = 0; start + len <= allDigits.length; start++) {
-            const num = Number(allDigits.slice(start, start + len))
-            if (num >= low && num <= high) {
-                result.push(num)
-            }
+const smallestSubsequence = (s) =>{
+    const arr_s = s.split('')
+    const store = []
+    for(a of arr_s){
+        if(!store.includes(a)){
+            store.push(a)
         }
     }
-    return result.sort((a, b) => a - b)
+    return store
 };
-const low = 1000
-const high = 13000
-const result = sequentialDigits(low, high)
-console.log(result)
+const s = "cbacdcbc"
+const result = smallestSubsequence(s)
+
+console.log(result);

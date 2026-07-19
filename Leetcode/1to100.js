@@ -584,3 +584,57 @@ const gcdSum = (nums) =>{
 };
 
 // TODO problem 16 :
+
+
+const gcdValues = (nums, queries) =>{
+    let M = Math.max(...nums)
+
+   const freq = new Array(M+1).fill(0)
+   for(const num of nums){
+    freq[num]++
+   }
+
+   const divCount = new Array(M+1).fill(0)
+
+   for(let d = 1; d<=M; d++){
+    let count = 0;
+    for(let multiple =  d; multiple <= M; multiple +=d){
+        count += freq[multiple]
+    }
+    divCount[d] =count;
+   }
+
+   const exactGCD = new Array(M+1).fill(0)
+
+   for (let d = 1; d<= M; d++){
+    const count  = divCount[d]
+    exactGCD[d]=count* (count-1)/2
+   }
+
+   for (let d = M; d>=1; d--){
+    for (let multiple = 2 *d; multiple <=M; multiple += d){
+        exactGCD[d]-=exactGCD[multiple]
+    }
+   }
+   const prefixGCD = new Array(M+1).fill(0)
+   for(let g = 1; g<=M; g++){
+    prefixGCD[g] = prefixGCD[g-1]+exactGCD[g]
+   }
+
+   const result =[]
+   for (const q of queries){
+    let left = 1, right = M
+    while( left <right){
+        const mid = Math.floor((left+right)/2)
+        if(prefixGCD[mid]>q){
+            right = mid
+        }else{
+            left = mid +1
+        }
+    }
+    result.push(left)
+   }
+   return result
+};
+
+// TODO problem 17 :
