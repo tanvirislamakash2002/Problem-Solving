@@ -638,3 +638,16 @@ const gcdValues = (nums, queries) =>{
 };
 
 // TODO problem 17 :
+
+const findGCD = (nums) =>{
+    const min =  Math.min(...nums)
+    const max =  Math.max(...nums)
+
+    for(let i = min; i>=1; i--){
+        if(min%i ===0 && max %i ===0){
+            return i
+        }
+    }    
+};
+
+// TODO problem 18 :
