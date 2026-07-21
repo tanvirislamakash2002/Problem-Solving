@@ -651,3 +651,31 @@ const findGCD = (nums) =>{
 };
 
 // TODO problem 18 :
+
+const smallestSubsequence = (s) => {
+    const lastOccurence = {}
+    const inStack = new Set()
+    const stack = []
+
+    for (let i = 0; i < s.length; i++) {
+        lastOccurence[s[i]] = i
+    }
+
+    for (let i = 0; i < s.length; i++) {
+        const char = s[i]
+
+        if (inStack.has(char)) continue
+
+        while (stack.length > 0 &&
+            stack[stack.length - 1] > char &&
+            lastOccurence[stack[stack.length - 1]] > i){
+            inStack.delete(stack.pop())
+        }
+
+        stack.push(char)
+        inStack.add(char)
+    }
+    return stack.join("")
+};
+
+// TODO problem 19 :
