@@ -679,3 +679,37 @@ const smallestSubsequence = (s) => {
 };
 
 // TODO problem 19 :
+
+const shiftGrid = (grid, k) => {
+    const m = grid.length
+    const n = grid[0].length
+    const total = m * n
+
+    k = k % total
+
+    const flat = []
+
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            flat.push(grid[i][j])
+        }
+    }
+
+    const result = []
+    for (let i = 0; i < m; i++) {
+        result.push([])
+        for (let j = 0; j < n; j++) {
+            const newIndex = (i * n + j - k + total) % total
+            result[i][j] = flat[newIndex]
+        }
+    }
+    return result
+
+};
+
+const grid = [[3,8,1,9],[19,7,2,5],[4,6,11,10],[12,0,21,13]]
+const k = 4
+
+console.log(shiftGrid(grid, k))
+
+// TODO problem 20 :
