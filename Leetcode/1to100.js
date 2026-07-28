@@ -713,3 +713,21 @@ const k = 4
 console.log(shiftGrid(grid, k))
 
 // TODO problem 20 :
+
+const uniqueXorTriplets = (nums) => {
+    const n = nums.length
+
+    if (n === 1) return 1
+    if (n === 2) return 2
+
+    let p = 1
+    while (p <= n) {
+        p <<= 1
+    }
+    return p
+};
+
+const nums = [3, 1, 2]
+const result = uniqueXorTriplets(nums)
+
+// TODO problem 21 :
