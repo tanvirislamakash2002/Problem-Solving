@@ -731,3 +731,32 @@ const nums = [3, 1, 2]
 const result = uniqueXorTriplets(nums)
 
 // TODO problem 21 :
+
+const uniqueXorTriplets = (nums) => {
+    const uniqueNums = [...new Set(nums)]
+    const n = uniqueNums.length
+
+    const MAX_XOR = 2048
+    const pairExists = new Array(MAX_XOR).fill(false)
+    const tripletExists = new Array(MAX_XOR).fill(false)
+
+    for (let i = 0; i < n; i++) {
+        for (let j = i; j < n; j++) {
+            pairExists[uniqueNums[i] ^ uniqueNums[j]] = true
+        }
+    }
+    for (let xor = 0; xor < MAX_XOR; xor++) {
+        if (pairExists[xor]) {
+            for (const num of uniqueNums) {
+                tripletExists[xor ^ num] = true
+            }
+        }
+    }
+    let count = 0
+    for (let i = 0; i < MAX_XOR; i++) {
+        if (tripletExists[i]) count++
+    }
+    return count
+};
+
+// TODO problem 22 :
