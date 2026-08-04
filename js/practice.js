@@ -1,15 +1,16 @@
-const maxProduct = (n) => {
-    const digits = Array.from(String(n), Number);
-    let maxProduct = 0;
-    
-    for (let i = 0; i < digits.length; i++) {
-        for (let j = i + 1; j < digits.length; j++) {
-            const product = digits[i] * digits[j];
-            if (product > maxProduct) {
-                maxProduct = product;
-            }
+var findMissingElements = function(nums) {
+    const min = Math.min(...nums);
+    const max = Math.max(...nums);
+    const missingElements = [];
+
+    for(let i=min;i<=max;i++){
+        if(!nums.includes(i)){
+            missingElements.push(i);
         }
     }
-    
-    return maxProduct;
+    return missingElements;
 };
+
+const nums = [1,4,2,5]
+const missingElements = findMissingElements(nums);
+console.log(missingElements)
